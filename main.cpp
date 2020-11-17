@@ -1,6 +1,8 @@
-#include "params.h"
+#include <iostream>
 #include "rk4_step.h"
-#include "rk4.h"
+
+
+vector<double> walk_to(double x_from, double x_to, vector<double> y0, void (*rhs_eval)(double, vector<double>, vector<double>&));
 
 
 void rhs_eval(double x, vector<double> y, vector<double>& dydx) {
@@ -11,11 +13,14 @@ void rhs_eval(double x, vector<double> y, vector<double>& dydx) {
 
 int main() {
 	double x_from{ 0 };
-	double x_to{ 10 };
+	double x_to{ 4 };
 	vector<double> y0{ 0, 0 };
-	Result result;
-	result = integrate(x_from, x_to, y0, rhs_eval);
-	result.print();
 
+	vector<double> y = walk_to(x_from, x_to, y0, rhs_eval);
+
+	cout << "y = ";
+	for (int i{ 0 }; i < y.size(); i++) {
+		cout << y[i] << ", ";
+	}
 	return 0;
 }
